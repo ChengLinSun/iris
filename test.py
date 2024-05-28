@@ -7,9 +7,15 @@ import numpy as np
 data = load_iris()
 X, y = data.data, data.target
 
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-model = XGBClassifier(colsample_bytree=0.8, learning_rate=0.01, max_depth=4, n_estimators=50, subsample=0.8)
-model.fit(x_train, y_train)
+try:
+    model=joblib.load('xgb_model.pkl')
+
+except FileNotFoundError:
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = XGBClassifier(colsample_bytree=0.8, learning_rate=0.01, max_depth=4, n_estimators=50, subsample=0.8)
+    model.fit(x_train, y_train)
+    joblib.dump(model, 'xgb_model.pkl')
+
 class_names = data.target_names
 
 st.title('这是一个鸢尾花分类器应用')
