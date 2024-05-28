@@ -14,10 +14,12 @@ class_names = data.target_names
 
 st.title('这是一个鸢尾花分类器应用')
 st.write('请输入花的四个特征来预测花的种类')
-sepal_length = st.number_input('sepal length (cm)', min_value=0.0)
-sepal_width = st.number_input('sepal_width (cm)', min_value=0.0)
-petal_length = st.number_input('petal_length (cm)', min_value=0.0)
-petal_width = st.number_input('petal_width (cm)', min_value=0.0)
+sepal_length = st.number_input('sepal length (cm)', min_value=0.1,step=1.0)
+sepal_width = st.number_input('sepal_width (cm)', min_value=0.1,step=1.0)
+petal_length = st.number_input('petal_length (cm)', min_value=0.1,step=1.0)
+petal_width = st.number_input('petal_width (cm)', min_value=0.1,step=1.0)
+if sepal_length == 0 or sepal_width == 0 or petal_length == 0 or petal_width == 0:
+    st.warning('所有输入值必须大于0！')
 if st.button('predict'):
     input_features = [[sepal_length, sepal_width, petal_length, petal_width]]
     prediction = model.predict(input_features)[0]
